@@ -1,0 +1,161 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agrinho 2026 â€” Quiz do Campo e Sustentabilidade</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="trabalho-agrinho.css">
+</head>
+<body>
+
+<!-- Background Scene -->
+<div class="bg-scene">
+  <div class="sky"></div>
+  <div class="sun"></div>
+  <div class="cloud cloud-1"></div>
+  <div class="cloud cloud-2"></div>
+  <div class="cloud cloud-3"></div>
+  <div class="bird bird-1">ðŸ¦</div>
+  <div class="bird bird-2">ðŸ¦</div>
+  <div class="hills">
+    <div class="hill hill-1"></div>
+    <div class="hill hill-2"></div>
+    <div class="hill hill-3"></div>
+    <div class="hill hill-4"></div>
+  </div>
+  <div class="ground"></div>
+  <!-- Trees -->
+  <div class="tree" style="left:5%; bottom:46%">
+    <div class="tree-top"></div><div class="tree-top-2"></div><div class="tree-trunk"></div>
+  </div>
+  <div class="tree" style="left:10%; bottom:46%; animation-delay:-1.5s">
+    <div class="tree-top"></div><div class="tree-top-2"></div><div class="tree-trunk"></div>
+  </div>
+  <div class="tree" style="right:6%; bottom:46%; animation-delay:-2s">
+    <div class="tree-top"></div><div class="tree-top-2"></div><div class="tree-trunk"></div>
+  </div>
+  <div class="tree" style="right:13%; bottom:46%; animation-delay:-0.8s">
+    <div class="tree-top"></div><div class="tree-top-2"></div><div class="tree-trunk"></div>
+  </div>
+  <!-- Flowers -->
+  <div class="flower" style="left:18%; animation-delay:0s">ðŸŒ¸</div>
+  <div class="flower" style="left:25%; animation-delay:-1s">ðŸŒ»</div>
+  <div class="flower" style="right:20%; animation-delay:-2s">ðŸŒ¼</div>
+  <div class="flower" style="right:28%; animation-delay:-0.5s">ðŸŒº</div>
+  <div class="butterfly" style="left:40%; bottom:55%">ðŸ¦‹</div>
+  <div class="butterfly" style="right:35%; bottom:60%; animation-delay:-3s; animation-duration:10s">ðŸ¦‹</div>
+</div>
+
+<!-- Confetti Container -->
+<div class="confetti-container" id="confettiContainer"></div>
+
+<!-- APP -->
+<div id="app">
+
+  <!-- ===== INTRO SCREEN ===== -->
+  <div class="screen active" id="screenIntro">
+    <div class="card">
+      <div class="logo-area">
+        <span class="logo-icon">ðŸŒ±</span>
+        <div class="logo-badge">Agrinho 2026</div>
+        <h1 class="intro-title">Quiz do Campo e<br>Sustentabilidade</h1>
+        <p class="intro-sub">Teste seus conhecimentos sobre o campo e o meio ambiente!</p>
+      </div>
+
+      <div class="categories-grid">
+        <div class="cat-chip"><span>ðŸŒ¿</span>Meio Ambiente</div>
+        <div class="cat-chip"><span>ðŸŒ¾</span>Agricultura</div>
+        <div class="cat-chip"><span>â™»ï¸</span>Reciclagem</div>
+        <div class="cat-chip"><span>ðŸ’§</span>Ãgua</div>
+        <div class="cat-chip"><span>ðŸ„</span>Animais</div>
+      </div>
+
+      <div class="intro-info">
+        <div class="info-item"><span class="icon">â“</span> 15 perguntas</div>
+        <div class="info-item"><span class="icon">â±ï¸</span> 20 seg/pergunta</div>
+        <div class="info-item"><span class="icon">â­</span> 10 pts cada</div>
+        <div class="info-item"><span class="icon">ðŸ†</span> PontuaÃ§Ã£o final</div>
+      </div>
+
+      <div style="text-align:center">
+        <button class="btn btn-primary" onclick="startQuiz()">ðŸš€ ComeÃ§ar Quiz!</button>
+      </div>
+    </div>
+    <div class="footer-badge">Projeto Agrinho 2026 â€¢ Campo e Sustentabilidade</div>
+  </div>
+
+  <!-- ===== QUIZ SCREEN ===== -->
+  <div class="screen" id="screenQuiz">
+    <div class="card">
+      <div class="progress-area">
+        <div class="progress-row">
+          <span class="progress-label" id="progressLabel">Pergunta 1 de 15</span>
+          <span class="progress-score" id="progressScore">â­ 0 pts</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+      </div>
+
+      <div class="q-header">
+        <div class="q-category-badge" id="qCategory">ðŸŒ¿ Categoria</div>
+        <div class="q-timer" id="qTimer">â±ï¸ 20</div>
+        <span class="q-number" id="qNumber">1/15</span>
+      </div>
+
+      <div class="question-text" id="questionText">Carregando pergunta...</div>
+
+      <div class="options-grid" id="optionsGrid"></div>
+
+      <div class="feedback-popup" id="feedbackPopup"></div>
+    </div>
+  </div>
+
+  <!-- ===== RESULTS SCREEN ===== -->
+  <div class="screen" id="screenResult">
+    <div class="card">
+      <div class="result-hero">
+        <span class="result-trophy" id="resultTrophy">ðŸ†</span>
+        <div class="result-score-circle" id="scoreCircle">
+          <div class="result-score-inner">
+            <span class="result-score-num" id="resultScoreNum">0</span>
+            <span class="result-score-total" id="resultScoreTotal">de 150</span>
+          </div>
+        </div>
+        <div class="result-title" id="resultTitle">ParabÃ©ns!</div>
+        <div class="result-msg" id="resultMsg">VocÃª concluiu o quiz!</div>
+      </div>
+
+      <div class="result-stats">
+        <div class="stat-box">
+          <span class="stat-icon">âœ…</span>
+          <div class="stat-val" id="statCorrect">0</div>
+          <div class="stat-lbl">Acertos</div>
+        </div>
+        <div class="stat-box">
+          <span class="stat-icon">âŒ</span>
+          <div class="stat-val" id="statWrong">0</div>
+          <div class="stat-lbl">Erros</div>
+        </div>
+        <div class="stat-box">
+          <span class="stat-icon">âš¡</span>
+          <div class="stat-val" id="statStreak">0</div>
+          <div class="stat-lbl">Maior Combo</div>
+        </div>
+      </div>
+
+      <div class="result-bar-section" id="categoryBars"></div>
+
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="restartQuiz()">ðŸ”„ Jogar Novamente</button>
+        <button class="btn btn-outline" onclick="showIntro()">ðŸ  InÃ­cio</button>
+      </div>
+    </div>
+    <div class="footer-badge">Projeto Agrinho 2026 â€¢ Campo e Sustentabilidade</div>
+  </div>
+
+</div>
+
+<script src="trabalho-agrinho.js"></script>
+</body>
+</html>
+
